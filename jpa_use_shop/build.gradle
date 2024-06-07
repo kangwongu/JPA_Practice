@@ -24,7 +24,7 @@ group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
 java {
-    sourceCompatibility = '17'
+    sourceCompatibility = JavaVersion.VERSION_17
 }
 
 configurations {
@@ -40,13 +40,15 @@ repositories {
 dependencies {
     // 코틀린
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
-    implementation 'org.jetbrains.kotlin:kotlin-reflect:1.6.21'
+    implementation 'org.jetbrains.kotlin:kotlin-reflect:1.9.23'
     implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3'  // 코틀린 - JSON
 
     // 코틀린 - QueryDSL
-    implementation 'com.querydsl:querydsl-jpa:5.0.0'
-    kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
-    kapt("org.springframework.boot:spring-boot-configuration-processor")
+    implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
+    kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
+//    implementation 'com.querydsl:querydsl-jpa:5.0.0'
+//    kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
+//    kapt("org.springframework.boot:spring-boot-configuration-processor")
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
@@ -55,8 +57,15 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
 //    runtimeOnly 'com.h2database:h2'
     runtimeOnly 'com.mysql:mysql-connector-j'
-    annotationProcessor 'org.projectlombok:lombok'
+    kapt("org.projectlombok:lombok")
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // TestContainer
+    testImplementation("org.testcontainers:testcontainers:1.19.7")
+    testImplementation("org.testcontainers:junit-jupiter:1.19.7")
+    testImplementation("org.testcontainers:mysql:1.19.7")
+
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 tasks.named('test') {
@@ -66,6 +75,7 @@ tasks.named('test') {
 // 코틀린
 compileKotlin {
     kotlinOptions {
+        freeCompilerArgs += "-Xjsr305=strict"
         jvmTarget = "17"
     }
 }

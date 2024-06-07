@@ -1,4 +1,16 @@
 spring:
+  profiles:
+    default: local
+
+logging:
+  level:
+    org.hibernate.sql: debug
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
   datasource:
     url: jdbc:mysql://localhost:3306/exampledb
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -13,6 +25,31 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
 
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+
+  datasource:
+    url: jdbc:tc:mysql:8.0.36:///test?TC_INITSCRIPT=file:src/test/resources/schema.sql
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+
+  jpa:
+    show-sql: true
+#    database: mysql
+    properties:
+      hibernate:
+        format_sql: true
+        highlight_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+#        use_sql_comments: true
+
 logging:
   level:
-    org.hibernate.sql: debug
+    org:
+      hibernate:
+        #                SQL: debug
+        type:
+          descriptor:
+            sql: trace
