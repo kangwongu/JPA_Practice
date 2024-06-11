@@ -1,6 +1,7 @@
-package com.jpauseshop.order.infrastructure.entity
+package com.jpauseshop.orderitem.infrastructure.entity
 
 import com.jpauseshop.item.infrastructure.entity.ItemEntity
+import com.jpauseshop.order.infrastructure.entity.OrderEntity
 import jakarta.persistence.*
 
 @Entity

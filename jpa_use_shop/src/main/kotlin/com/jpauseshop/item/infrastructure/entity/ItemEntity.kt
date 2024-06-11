@@ -1,5 +1,6 @@
 package com.jpauseshop.item.infrastructure.entity
 
+import com.jpauseshop.global.annotation.AllOpen
 import jakarta.persistence.*
 
 // 상속관계
@@ -7,8 +8,9 @@ import jakarta.persistence.*
 // 상속관계 전략
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 // D타입 지정
-@DiscriminatorColumn(name = "item_type", columnDefinition = "string")
+@DiscriminatorColumn(name = "item_type")
 @Table(name = "item")
+@AllOpen
 abstract class ItemEntity(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "item_id")

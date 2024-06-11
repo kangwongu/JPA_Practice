@@ -3,6 +3,8 @@ DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS delivery;
 DROP TABLE IF EXISTS item;
 DROP TABLE IF EXISTS member;
+DROP TABLE IF EXISTS category;
+DROP TABLE IF EXISTS category_item;
 
 CREATE TABLE member (
     member_id BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -48,4 +50,18 @@ CREATE TABLE order_item (
     order_id BIGINT,
     order_price INT NOT NULL,
     count INT NOT NULL
+);
+
+create table category (
+      id bigint not null auto_increment,
+      parent_id bigint,
+      name varchar(255),
+      primary key (id)
+);
+
+create table category_item (
+   category_id bigint,
+   id bigint not null auto_increment,
+   item_id bigint,
+   primary key (id)
 );
