@@ -1,6 +1,7 @@
 package com.jpauseshop.member.infrastructure.entity
 
 import com.jpauseshop.global.model.Address
+import com.jpauseshop.member.domain.Member
 import jakarta.persistence.Column
 import jakarta.persistence.Embedded
 import jakarta.persistence.Entity
@@ -22,6 +23,14 @@ class MemberEntity(
     @Embedded
     val address: Address,
 
+) {
 
-    ) {
+    fun toModel(): Member {
+        return Member(
+            id = id,
+            name = name,
+            address = address
+        )
+
+    }
 }
